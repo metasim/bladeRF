@@ -434,7 +434,7 @@ if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.20)
     cmake_policy(SET CMP0115 OLD)
 endif(CMAKE_VERSION VERSION_GREATER_EQUAL 3.20)
 add_library(libbladerf_shared SHARED ${LIBBLADERF_SOURCE})
-
+add_library(libbladerf_static STATIC ${LIBBLADERF_SOURCE})
 
 ################################################################################
 # Build configuration
@@ -455,9 +455,11 @@ if(ENABLE_BACKEND_CYAPI)
 endif(ENABLE_BACKEND_CYAPI)
 
 target_link_libraries(libbladerf_shared ${LIBBLADERF_LIBS})
+target_link_libraries(libbladerf_static ${LIBBLADERF_LIBS})
 
 # Adjust our output name
 set_target_properties(libbladerf_shared PROPERTIES OUTPUT_NAME bladeRF)
+set_target_properties(libbladerf_static PROPERTIES OUTPUT_NAME bladeRF)
 
 # Set shared library version
 set_target_properties(libbladerf_shared PROPERTIES SOVERSION ${VERSION_INFO_MAJOR})
@@ -523,6 +525,10 @@ install(TARGETS libbladerf_shared
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} # .so/.dylib
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} # .a/.lib
     RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR} # .dll
+)
+
+install(TARGETS libbladerf_static
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} # .a/.lib
 )
 
 # ###############################################################################

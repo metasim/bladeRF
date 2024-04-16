@@ -54,3 +54,5 @@ host/misc/windows/scripts/work
 **/modelsim/*.wlf
 **/modelsim/work/
 **/modelsim/nuand/
+.idea
+cmake-build-debug
